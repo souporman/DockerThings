@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  sabnzbd:
+    image: lscr.io/linuxserver/sabnzbd:latest
+    container_name: sabnzbd
+    ports:
+      - "${SABNZBD_PORT}:8080"
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - UMASK=${UMASK}
+      - TZ=${TZ}
+      # - DOCKER_MODS=${SABNZBD_DOCKER_MODS}   # optional; define in env if you use it
+    volumes:
+      - ${SABNZBD_CONFIG}:/config
+      - ${INCOMPLETE}:/incomplete
+      - ${DOWNLOADS}:/downloads
+    restart: unless-stopped
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
