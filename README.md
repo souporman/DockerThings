@@ -6,17 +6,13 @@ Portainer-managed Git stacks for a small homelab: **SABnzbd, Sonarr, Radarr, Baz
 
 ---
 
-You can deploy stacks individually in Portainer by pointing to each file under `stacks/`.
-
----
-
 ## Prereqs
 
 - Docker Engine + Portainer (**Standalone**)
 - Host folders created with correct ownership/permissions, e.g.
   - `/srv/docker/<app>/config` for app configs
   - `/mnt/plex` (and subfolders) for media/downloads
-- A private GitHub repo (this one), with a read-only auth method for Portainer:
+- A  GitHub repo (this one), with a read-only auth method for Portainer:
   - **Fine-grained PAT** (Repository access → _Only select repositories_ → this repo; Permission **Contents: Read**) _or_
   - **SSH deploy key** (read-only)
 
@@ -36,8 +32,7 @@ You can deploy stacks individually in Portainer by pointing to each file under `
    - `stacks/cloudflared.yml` (add TUNNEL_TOKEN env variable)
    - `stacks/heimdall.yml` )
 5. **Authentication:** your GitHub username + token _or_ SSH deploy key
-6. (Optional) **Auto-update:** enable polling or configure a webhook (Repo → Settings → Webhooks → push event)
-7. **Deploy the stack**
+6. **Deploy the stack**
 
 ---
 
