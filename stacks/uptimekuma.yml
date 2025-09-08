@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  uptime-kuma:
+    image: louislam/uptime-kuma:latest
+    container_name: uptime-kuma_stack
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+    environment:
+      - TZ=America/Phoenix
+    volumes:
+      - /srv/docker/uptime-kuma/data:/app/data
+    ports:
+      - "3001:3001"
+    restart: unless-stopped
