@@ -11,10 +11,6 @@ services:
       - PGID=1000
       - UMASK=002
       - TZ=America/Phoenix
-      # helpful overrides if the old DB had custom binds/urlbase
-      - SONARR__BINDADDRESS=*
-      - SONARR__PORT=8989
-      - SONARR__URLBASE=
     volumes:
       - /srv/docker/sonarr/config:/config
       - /mnt/plex:/downloads             # MUST match SAB's /downloads
