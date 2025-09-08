@@ -41,6 +41,64 @@ You can deploy stacks individually in Portainer by pointing to each file under `
 
 ---
 
+## Stack Overview & Interactions
+
+### SABnzbd
+- **Role:** Usenet downloader; fetches requested content.
+- **Communicates with:**
+  - Radarr & Sonarr (via API at `http://<host-ip>:8888`).
+  - Shares completed files through `/downloads`.
+
+### Radarr (Movies)
+- **Role:** Automates movie acquisition and library management.
+- **Communicates with:**
+  - SABnzbd (to request downloads and monitor status).
+  - Shared `/downloads` folder (to import completed movies).
+  - Writes organized files into `/movies`.
+
+### Sonarr (TV Shows)
+- **Role:** Automates TV show acquisition and library management.
+- **Communicates with:**
+  - SABnzbd (to request downloads and monitor status).
+  - Shared `/downloads` folder (to import completed episodes).
+  - Writes organized files into `/tv`.
+
+### Bazarr (Subtitles)
+- **Role:** Fetches and manages subtitles for existing media.
+- **Communicates with:**
+  - Radarr & Sonarr libraries directly (`/movies`, `/tv`).
+  - Does not interact with SABnzbd or `/downloads`.
+
+### Heimdall
+- **Role:** Web dashboard / homepage for all services.
+- **Communicates with:**
+  - None directly — provides quick links to other stack UIs.
+
+### Pi-hole
+- **Role:** Local DNS sinkhole and ad/malware blocker.
+- **Communicates with:**
+  - LAN clients (DNS queries).
+  - Independent from media stack.
+
+### cloudflared
+- **Role:** Secure Cloudflare Tunnel for remote access.
+- **Communicates with:**
+  - Cloudflare edge network (via `TUNNEL_TOKEN`).
+  - Can expose UIs like Heimdall, Radarr, or Sonarr safely to the internet.
+
+---
+
+## How They Fit Together
+
+- **SABnzbd** is the download engine.  
+- **Radarr & Sonarr** act as the brains: they decide what to download, instruct SABnzbd, then import finished content.  
+- **Bazarr** adds subtitles once movies/TV are in place.  
+- **Heimdall** is the user-facing dashboard for quick access.  
+- **Pi-hole** is a separate DNS service for the LAN.  
+- **cloudflared** optionally publishes chosen web UIs to the internet through Cloudflare.
+
+---
+
 ## Service notes
 
 ### SABnzbd
