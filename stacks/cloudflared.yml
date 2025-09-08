@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: cloudflared
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+    command: ["tunnel", "--no-autoupdate", "run", "--token", "${TUNNEL_TOKEN}"]
+    environment:
+      - TZ=America/Phoenix
+    volumes:
+      - /srv/docker/cloudflared:/etc/cloudflared
+    restart: unless-stopped
