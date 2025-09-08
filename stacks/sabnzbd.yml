@@ -5,17 +5,17 @@ services:
     image: lscr.io/linuxserver/sabnzbd:latest
     container_name: sabnzbd
     ports:
-      - "${SABNZBD_PORT}:8080"
+      - "8888:8080"                 # host:container
     environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - UMASK=${UMASK}
-      - TZ=${TZ}
-      # - DOCKER_MODS=${SABNZBD_DOCKER_MODS}   # optional; define in env if you use it
+      - PUID=1000
+      - PGID=1000
+      - UMASK=002
+      - TZ=America/Phoenix
+      # - DOCKER_MODS=linuxserver/mods:universal-search   # optional
     volumes:
-      - ${SABNZBD_CONFIG}:/config
-      - ${INCOMPLETE}:/incomplete
-      - ${DOWNLOADS}:/downloads
+      - /srv/docker/sabnzbd/config:/config
+      - /mnt/plex/Downloading:/incomplete    # temp
+      - /mnt/plex:/downloads                 # finished
     restart: unless-stopped
     labels:
       - com.centurylinklabs.watchtower.enable=true

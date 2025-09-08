@@ -5,16 +5,16 @@ services:
     image: lscr.io/linuxserver/radarr:latest
     container_name: radarr
     ports:
-      - "${RADARR_PORT}:7878"
+      - "7878:7878"
     environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - UMASK=${UMASK}
-      - TZ=${TZ}
+      - PUID=1000
+      - PGID=1000
+      - UMASK=002
+      - TZ=America/Phoenix
     volumes:
-      - ${RADARR_CONFIG}:/config
-      - ${DOWNLOADS}:/downloads      # MUST match SAB's /downloads
-      - ${MOVIES}:/movies
+      - /srv/docker/radarr/config:/config
+      - /mnt/plex:/downloads             # MUST match SAB's /downloads
+      - /mnt/plex/Movies:/movies         # Movies library
     restart: unless-stopped
     labels:
       - com.centurylinklabs.watchtower.enable=true

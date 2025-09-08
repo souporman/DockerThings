@@ -5,15 +5,15 @@ services:
     image: lscr.io/linuxserver/bazarr:latest
     container_name: bazarr
     ports:
-      - "${BAZARR_PORT}:6767"
+      - "6767:6767"
     environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Phoenix
     volumes:
-      - ${BAZARR_CONFIG}:/config
-      - ${MOVIES}:/movies
-      - ${TV}:/tv
+      - /srv/docker/bazarr/config:/config
+      - /mnt/plex/Movies:/movies
+      - /mnt/plex/TV:/tv
     restart: unless-stopped
     labels:
       - com.centurylinklabs.watchtower.enable=true
