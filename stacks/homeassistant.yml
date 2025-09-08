@@ -1,0 +1,16 @@
+version: "3.8"
+
+services:
+  homeassistant:
+    image: ghcr.io/home-assistant/home-assistant:stable
+    container_name: homeassistant
+    labels:
+      - com.centurylinklabs.watchtower.enable=true   # remove if you prefer manual HA upgrades
+    network_mode: host
+    privileged: true
+    environment:
+      - TZ=America/Phoenix
+    volumes:
+      - /srv/docker/homeassistant/config:/config
+      - /etc/localtime:/etc/localtime:ro
+    restart: unless-stopped
