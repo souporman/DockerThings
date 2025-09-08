@@ -74,17 +74,27 @@ You can deploy stacks individually in Portainer by pointing to each file under `
 - **Communicates with:**
   - None directly — provides quick links to other stack UIs.
 
-### Pi-hole
-- **Role:** Local DNS sinkhole and ad/malware blocker.
+### Watchtower
+- **Role:** Monitors running containers and auto-updates images when new versions are released.
 - **Communicates with:**
-  - LAN clients (DNS queries).
-  - Independent from media stack.
+  - Docker Engine API (manages all stacks).
 
-### cloudflared
-- **Role:** Secure Cloudflare Tunnel for remote access.
+### Uptime Kuma
+- **Role:** Self-hosted monitoring tool for services, sites, and endpoints.
 - **Communicates with:**
-  - Cloudflare edge network (via `TUNNEL_TOKEN`).
-  - Can expose UIs like Heimdall, Radarr, or Sonarr safely to the internet.
+  - Periodically queries Radarr, Sonarr, SABnzbd, etc. to check uptime and status.
+  - Provides its own dashboard for alerts/notifications.
+
+### Overseerr
+- **Role:** Request management system for media (front-end for Radarr/Sonarr).
+- **Communicates with:**
+  - Radarr & Sonarr APIs (to create and manage requests).
+  - SABnzbd indirectly via Radarr/Sonarr.
+
+### Tautulli
+- **Role:** Analytics and monitoring for Plex usage.
+- **Communicates with:**
+  - Plex Media Server API (not directly tied to Radarr/Sonarr/SAB).
 
 ---
 
@@ -93,9 +103,11 @@ You can deploy stacks individually in Portainer by pointing to each file under `
 - **SABnzbd** is the download engine.  
 - **Radarr & Sonarr** act as the brains: they decide what to download, instruct SABnzbd, then import finished content.  
 - **Bazarr** adds subtitles once movies/TV are in place.  
+- **Overseerr** provides a user-friendly interface for requesting media, passing requests to Radarr/Sonarr.  
 - **Heimdall** is the user-facing dashboard for quick access.  
-- **Pi-hole** is a separate DNS service for the LAN.  
-- **cloudflared** optionally publishes chosen web UIs to the internet through Cloudflare.
+- **Watchtower** keeps all stacks up-to-date automatically.  
+- **Uptime Kuma** monitors all services for availability.  
+- **Tautulli** reports on Plex usage and viewing activity.
 
 ---
 
