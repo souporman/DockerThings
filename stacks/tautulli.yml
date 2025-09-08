@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  tautulli:
+    image: lscr.io/linuxserver/tautulli:latest
+    container_name: tautulli
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+    environment:
+      - PUID=1000            # your user id
+      - PGID=1000            # your group id
+      - TZ=America/Phoenix
+      - UMASK=002            # permissive umask
+    volumes:
+      - /srv/docker/tautulli/config:/config
+    ports:
+      - "8181:8181"          # Web UI (change left side if you want a different host port)
+    restart: unless-stopped
