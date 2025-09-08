@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  watchtower:
+    image: containrrr/watchtower:latest
+    container_name: watchtower
+    environment:
+      - TZ=America/Phoenix
+      # Only update containers that you explicitly label:
+      - WATCHTOWER_LABEL_ENABLE=true
+      # Remove old images after updating:
+      - WATCHTOWER_CLEANUP=true
+      # Daily at 4:30 AM local time (sec min hour dom mon dow):
+      - WATCHTOWER_SCHEDULE=0 30 4 * * *
+      # Helpful toggles you can enable later:
+      # - WATCHTOWER_MONITOR_ONLY=true   # report only, no updates
+      # - WATCHTOWER_DEBUG=true          # verbose logs
+      # - WATCHTOWER_RUN_ONCE=true       # do one pass then exit
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
