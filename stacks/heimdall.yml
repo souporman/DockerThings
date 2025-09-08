@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  heimdall:
+    image: lscr.io/linuxserver/heimdall:latest
+    container_name: heimdall_stack
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Phoenix
+    volumes:
+      - /srv/docker/heimdall/config:/config
+    ports:
+      - "11080:80"
+      - "11443:443"
+    restart: unless-stopped
