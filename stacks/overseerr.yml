@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  overseerr:
+    image: lscr.io/linuxserver/overseerr:latest
+    container_name: overseerr_stack
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - UMASK=002
+      - TZ=America/Phoenix
+    volumes:
+      - /srv/docker/overseerr/config:/config
+      # Optional custom branding (ensure this file exists)
+      - /srv/docker/overseerr/assets/batman.svg:/app/overseerr/public/logo_stacked.svg:ro
+      - /srv/docker/overseerr/assets/batman.svg:/app/overseerr/public/logo_full.svg:ro
+    ports:
+      - "5055:5055"
+    restart: unless-stopped
