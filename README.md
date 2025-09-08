@@ -1,6 +1,6 @@
 # DockerThings
 
-Portainer-managed Git stacks for a small homelab: **SABnzbd, Sonarr, Radarr, Bazarr, Heimdall, Pi-hole, Cloudflared, Overseerr, Tautulli, Uptime Kuma**.
+Portainer-managed Git stacks for a small homelab: **SABnzbd, Sonarr, Radarr, Bazarr, Heimdall, Cloudflared, Overseerr, Tautulli, Uptime Kuma**.
 
 > This repo stores the **Compose files** only. Secrets/tokens stay out of Git.
 
