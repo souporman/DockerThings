@@ -15,7 +15,7 @@ services:
     volumes:
       - /srv/docker/sabnzbd/config:/config
       - /mnt/plex/Downloading:/incomplete    # temp
-      - /mnt/plex:/downloads                 # finished
+      - /mnt/plex:/downloads                 # finished - Sonarr and Radarr must have this as well.
     restart: unless-stopped
     labels:
       - com.centurylinklabs.watchtower.enable=true
