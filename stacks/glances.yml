@@ -1,0 +1,20 @@
+version: "3.8"
+
+services:
+  glances:
+    image: nicolargo/glances:latest-full
+    container_name: glances
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+    environment:
+      - TZ=America/Phoenix
+      - GLANCES_OPT=-w           # start built-in web UI
+    ports:
+      - "8899:61208"             # open http://<host>:8899
+    pid: host                    # show host processes (not just container)
+    volumes:
+      - /srv/docker/glances/config:/glances/conf
+      - /srv/docker/glances/data:/glances/data
+      - /var/run/docker.sock:/var/run/docker.sock:ro   # Docker stats
+      - /etc/os-release:/etc/os-release:ro
+    restart: unless-stopped
