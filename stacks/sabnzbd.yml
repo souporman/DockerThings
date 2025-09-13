@@ -13,7 +13,7 @@ services:
       - TZ=America/Phoenix
     volumes:
       - /srv/docker/sabnzbd/config:/config
-      - /mnt/plex/Downloading:/incomplete    # temp
+      - /srv/local/sab/incomplete:/incomplete   # local fast temp
       - /mnt/plex:/downloads                 # finished - Sonarr and Radarr must have this as well.
     restart: unless-stopped
     labels:
