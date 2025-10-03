@@ -14,7 +14,7 @@ services:
     volumes:
       - /srv/docker/radarr/config:/config
       - /mnt/plex:/downloads             # MUST match SAB's /downloads
-      - /mnt/plex/Movies:/movies         # Movies library
+      - /mnt/plex/Movies:/Movies         # Movies library
     restart: unless-stopped
     labels:
       - com.centurylinklabs.watchtower.enable=true
