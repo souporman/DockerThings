@@ -14,7 +14,7 @@ services:
     volumes:
       - /srv/docker/sonarr/config:/config
       - /mnt/plex:/downloads             # MUST match SAB's /downloads
-      - /mnt/plex/TV:/tv                 # TV library
+      - /mnt/plex/TV:/TV                 # TV library
     restart: unless-stopped
     labels:
       - com.centurylinklabs.watchtower.enable=true
