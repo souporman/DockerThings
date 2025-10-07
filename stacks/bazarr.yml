@@ -12,8 +12,8 @@ services:
       - TZ=America/Phoenix
     volumes:
       - /srv/docker/bazarr/config:/config
-      - /mnt/plex/Movies:/movies
-      - /mnt/plex/TV:/tv
+      - /mnt/plex/Movies:/Movies
+      - /mnt/plex/TV:/TV
     restart: unless-stopped
     labels:
       - com.centurylinklabs.watchtower.enable=true
