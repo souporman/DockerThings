@@ -13,9 +13,11 @@ services:
     volumes:
       - /srv/docker/sabnzbd/config:/config
       - /srv/local/sab/incomplete:/incomplete-downloads   # fast local temp
-      - /srv/local/sab/complete:/downloads                 # finished (local)
+      - /srv/local/sab/complete:/downloads                # finished (local)
     restart: unless-stopped
     labels:
       - com.centurylinklabs.watchtower.enable=true
     ulimits:
-      nofile: 65535:65535
+      nofile:
+        soft: 65535
+        hard: 65535
