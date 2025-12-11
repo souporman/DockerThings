@@ -2,8 +2,7 @@
     image: lscr.io/linuxserver/sabnzbd:latest
     container_name: sabnzbd
     ports:
-      - "8888:8080"                 # host:container
-    #network_mode: host                 # ← no docker0/veth; binds to host :8080
+      - "8888:8080"                
     environment:
       - PUID=1000
       - PGID=1000
