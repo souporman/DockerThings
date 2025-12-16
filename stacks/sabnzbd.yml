@@ -1,8 +1,11 @@
+version: "3.8"
+
+services:
   sabnzbd:
     image: lscr.io/linuxserver/sabnzbd:latest
     container_name: sabnzbd
     ports:
-      - 8888:8080
+      - "8888:8080"
     environment:
       - PUID=1000
       - PGID=1000
@@ -10,10 +13,10 @@
       - TZ=America/Phoenix
     volumes:
       - /srv/docker/sabnzbd/config:/config
-      - /srv/local/sab/incomplete:/incomplete   # local fast temp
-      - /mnt/plex:/downloads                 # finished - Sonarr and Radarr must have this as well.
-      - /srv/local/sab/incomplete:/incomplete-downloads   # fast local temp
-      - /srv/local/sab/complete:/downloads                 # finished (local)
+      - /srv/local/sab/incomplete:/incomplete              # local fast temp
+      - /mnt/plex:/downloads                                # MUST match Sonarr/Radarr /downloads
+      - /srv/local/sab/incomplete:/incomplete-downloads     # fast local temp
+      - /srv/local/sab/complete:/downloads-local            # optional local finished path
     restart: unless-stopped
     labels:
       - com.centurylinklabs.watchtower.enable=true
