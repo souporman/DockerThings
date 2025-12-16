@@ -13,12 +13,14 @@ services:
       - TZ=America/Phoenix
     volumes:
       - /srv/docker/sabnzbd/config:/config
-      - /srv/local/sab/incomplete:/incomplete              # local fast temp
-      - /mnt/plex:/downloads                                # MUST match Sonarr/Radarr /downloads
-      - /srv/local/sab/incomplete:/incomplete-downloads     # fast local temp
-      - /srv/local/sab/complete:/downloads-local            # optional local finished path
+      - /srv/local/sab/incomplete:/incomplete
+      - /mnt/plex:/downloads
+      - /srv/local/sab/incomplete:/incomplete-downloads
+      - /srv/local/sab/complete:/downloads-local
     restart: unless-stopped
     labels:
       - com.centurylinklabs.watchtower.enable=true
     ulimits:
-      nofile: 65535:65535
+      nofile:
+        soft: 65535
+        hard: 65535
