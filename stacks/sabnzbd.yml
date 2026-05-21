@@ -1,39 +1,27 @@
 version: "3.8"
 
 services:
-  watchtower:
-    image: containrrr/watchtower:latest
-    container_name: watchtower
+  sabnzbd:
+    image: lscr.io/linuxserver/sabnzbd:latest
+    pull_policy: always
+    container_name: sabnzbd
+    ports:
+      - "8888:8080"
     environment:
+      - PUID=1000
+      - PGID=1000
+      - UMASK=002
       - TZ=America/Phoenix
-
-      # Docker 29+ compatibility.
-      # Without this, Watchtower may default too low and fail against newer Docker.
-      - DOCKER_API_VERSION=1.44
-
-      # Only update containers that explicitly opt in with:
-      # com.centurylinklabs.watchtower.enable=true
-      - WATCHTOWER_LABEL_ENABLE=true
-
-      # Remove old images after successful updates.
-      - WATCHTOWER_CLEANUP=true
-
-      # Daily at 4:30 AM local time.
-      - WATCHTOWER_SCHEDULE=0 30 4 * * *
-
-      # More graceful app shutdowns during updates.
-      - WATCHTOWER_TIMEOUT=60s
-
-      # Optional: better visibility in logs.
-      - WATCHTOWER_NOTIFICATIONS_LEVEL=info
-
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-
-    healthcheck:
-      test: [ "CMD", "/watchtower", "--health-check" ]
-      interval: 5m
-      timeout: 10s
-      retries: 3
-
+      - /srv/docker/sabnzbd/config:/config
+      - /srv/local/sab/incomplete:/incomplete
+      - /mnt/plex:/downloads
+      - /srv/local/sab/incomplete:/incomplete-downloads
+      - /srv/local/sab/complete:/downloads-local
     restart: unless-stopped
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+    ulimits:
+      nofile:
+        soft: 65535
+        hard: 65535
