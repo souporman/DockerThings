@@ -13,3 +13,14 @@ services:
     ports:
       - "3001:3001"
     restart: unless-stopped
+
+  caddy-status:
+    image: caddy:2
+    container_name: uptime-kuma_status_proxy
+    depends_on:
+      - uptime-kuma
+    volumes:
+      - /srv/docker/uptime-kuma/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+    ports:
+      - "9876:9876"
+    restart: unless-stopped
