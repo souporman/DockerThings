@@ -4,16 +4,11 @@ services:
   watchtower:
     image: containrrr/watchtower:latest
     container_name: watchtower
+
     environment:
       - TZ=America/Phoenix
 
-      # Docker 29+ requires API 1.44 or newer.
-      # This prevents the "client version 1.25 is too old" issue.
-      - DOCKER_API_VERSION=1.44
-
-      # Only update containers that explicitly opt in:
-      # labels:
-      #   - com.centurylinklabs.watchtower.enable=true
+      # Only update containers that explicitly opt in.
       - WATCHTOWER_LABEL_ENABLE=true
 
       # Remove old images after successful updates.
@@ -22,7 +17,7 @@ services:
       # Daily at 4:30 AM local time.
       - WATCHTOWER_SCHEDULE=0 30 4 * * *
 
-      # Give containers up to 60 seconds to stop gracefully during update.
+      # Give containers up to 60 seconds to stop gracefully.
       - WATCHTOWER_TIMEOUT=60s
 
       # Keep useful log visibility.
