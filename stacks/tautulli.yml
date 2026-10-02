@@ -4,15 +4,23 @@ services:
   tautulli:
     image: lscr.io/linuxserver/tautulli:latest
     container_name: tautulli
+
     labels:
       - com.centurylinklabs.watchtower.enable=true
+
     environment:
       - PUID=1000            # your user id
       - PGID=1000            # your group id
       - TZ=America/Phoenix
       - UMASK=002            # permissive umask
+
     volumes:
       - /srv/docker/tautulli/config:/config
+
     ports:
-      - "8181:8181"          # Web UI (change left side if you want a different host port)
+      - "8181:8181"          # Web UI
+
+    extra_hosts:
+      - "192-168-30-180.79a03eaf3d4f478c867649bcf9a59baf.plex.direct:192.168.30.180"
+
     restart: unless-stopped
