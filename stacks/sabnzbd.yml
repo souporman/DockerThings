@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   sabnzbd:
     image: lscr.io/linuxserver/sabnzbd:latest
@@ -19,8 +17,6 @@ services:
       - /srv/local/sab/incomplete:/incomplete-downloads
       - /srv/local/sab/complete:/downloads-local
     restart: unless-stopped
-    labels:
-      - com.centurylinklabs.watchtower.enable=true
     ulimits:
       nofile:
         soft: 65535
